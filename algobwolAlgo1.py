@@ -1,6 +1,6 @@
 rows = 0
 cols = 0
-visited = []
+visited = set()
 outputStrings = []
 score = 0
 numOfMoves = 0
@@ -22,10 +22,9 @@ def findCluster(grid, i, j, color):
     cluster = []
     thisCell = grid[i][j]
 
-    if (i+1, j+1) not in visited:
-        visited.append((i+1, j+1))
-    if (i+1, j+1) not in cluster:
-        cluster.append((i+1, j+1))
+    if (i, j) not in visited:
+        visited.add((i, j))
+        cluster.append((i + 1, j + 1))
 
     up = i > 0 and grid[i-1][j] == thisCell
     down = i < rows-1 and grid[i+1][j] == thisCell
@@ -69,11 +68,17 @@ def checkIfValidMoves(clusters):
         if len(cluster.indices) > 1:
             return True
         
-def findBiggestCluster(clusters):
-    biggestCluster = clusters[0]
-    for cluster in clusters:
-        if len(cluster.indices) >= len(biggestCluster.indices):
-            biggestCluster = cluster
+def findBiggestCluster(clusters, grid):
+    biggestCluster, bestScore = clusters[0], -10**9
+    for cl in clusters:
+        k = len(cl.indices)
+        score = (k - 1) ** 2
+        test = [row[:] for row in grid]
+        updateGrid(test, cl)
+        empties = sum(1 for j in range(cols) if test[rows - 1][j] == 0)
+        score += 2 * empties
+        if score > bestScore:
+            biggestCluster, bestScore = cl, score
     return biggestCluster
 
 def clearCol(grid, col):
