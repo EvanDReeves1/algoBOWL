@@ -60,7 +60,7 @@ def getClusters(grid):
             if(i+1, j+1) not in visited and grid[i][j] != 0:
                 thisClust = findCluster(grid, i, j, grid[i][j])
                 clusters.append(cluster(grid[i][j], thisClust))
-    visited = []
+    visited = set()
     return clusters
 
 def checkIfValidMoves(clusters):
