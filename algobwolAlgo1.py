@@ -22,9 +22,9 @@ def findCluster(grid, i, j, color):
     cluster = []
     thisCell = grid[i][j]
 
-    if (i, j) not in visited:
-        visited.add((i, j))
-        cluster.append((i + 1, j + 1))
+    if (i+1, j+1) not in visited:
+        visited.add((i+1, j+1))
+        cluster.append((i+1, j+1))
 
     up = i > 0 and grid[i-1][j] == thisCell
     down = i < rows-1 and grid[i+1][j] == thisCell
