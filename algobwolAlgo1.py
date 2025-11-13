@@ -169,3 +169,7 @@ def main():
 
     # print(score)
     # print(numOfMoves)
+
+
+if __name__ == "__main__":
+    main()
