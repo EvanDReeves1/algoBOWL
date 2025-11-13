@@ -121,7 +121,7 @@ def solver(grid):
     global outputStrings
     clusters = getClusters(grid)
     while len(clusters) > 0 and checkIfValidMoves(clusters):
-        bestMove = findBiggestCluster(clusters)
+        bestMove = findBiggestCluster(clusters, grid)
         grid = updateGrid(grid, bestMove)
         numOfMoves += 1
         moveSize = len(bestMove.indices)
